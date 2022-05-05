@@ -1,0 +1,26 @@
+Directions: Think about each of the 3 principles for effective communication above by answering the following questions for each principle. 
+How could this practice contribute to the success of a Data Engineer at work? 
+What might be the implications of not following this best practice when communicating with others at work?
+
+
+Professionalism
+
+contribute: contribute to a positive work environment, represent yourself and the company in a positive manner, sets a standard of conduct, makes you approachable
+
+implications: the opposite
+
+
+
+
+Clarity
+
+contribute: foster a better mutual understanding of a process, concept or problem between yourself and your colleagues, adequately manage and delegate tasks and workload
+
+implications: mistakes and misunderstandings, work gets missed or done incorrectly
+
+
+Humility
+
+contribute: growth mindset, enhances collaboration and relationships between peers, makes you approachable
+
+implications:
