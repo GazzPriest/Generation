@@ -18,15 +18,15 @@
 #    orderno = orders.get("Order Number")
     #print(orderno1)
 
-
+def ordernumber():
+    with open("Project\data\orders.txt", 'r') as file:
+        ordercount = len(file.readlines()) + 1
+        return(ordercount)
 
 def createorder():
     orders = {}
     with open('Project\data\orders.txt', 'a') as orderdict:
-        order_number = 0
-        order_number_tracker = order_number + 1
-        orders["Order Number"] = order_number_tracker
-        order_number_tracker + 1
+        orders["Order Number"] = ordernumber()
         orders["Name"] = input("Enter name: ")
         orders["Address"] = input("Enter delivery address: ")
         orders["Phone"] = input("Enter phone number: ") #make an int
