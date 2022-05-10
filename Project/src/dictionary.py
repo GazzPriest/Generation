@@ -1,23 +1,3 @@
-
-#orders = {}
-#with open("Project\data\orders.txt") as file:
-#    for line in file:
-#        line = line.strip()
-#        orderlist = line.split(",")
-#        orders[orderlist[0]] = orderlist[1]
-
-#val = "Order Number"
-#print(orders[val])
-
-#        list = [line.rstrip("\n") for line in orderdict]
-#           (key, val) = line.split()
-#           orders[int(key)] = val
-#    print(orders)        
-#    print(len(orders))
-#for loop to populate dict json.dumps
-#    orderno = orders.get("Order Number")
-    #print(orderno1)
-
 def ordernumber():
     with open("Project\data\orders.txt", 'r') as file:
         ordercount = len(file.readlines()) + 1
@@ -37,7 +17,3 @@ def createorder():
         print(orders)
 
 createorder()
-
-
-#order number = order_number tracker
-#order_number_tracker += 1
