@@ -20,7 +20,7 @@ def mainmenu_input(): ##function to call main menu input from user
         prodmenu()
     elif user_input == '2':
         couriermenu()
-    '''elif user_input == '3':
+    elif user_input == '3':
         customermenu()
     elif user_input == '4':
         ordermenu()
@@ -28,7 +28,7 @@ def mainmenu_input(): ##function to call main menu input from user
         exit() #function should call savefile
     else:
         print('Sorry, invalid input, please try again')
-        mainmenu()'''
+        mainmenu()
 
 def prodmenu(): ## function to call product menu
     menuline()
@@ -286,9 +286,10 @@ def delcourierrepeat(): ##function that allows user to delete products one by on
         print('Sorry, invalid input, please try again')
         delcourierrepeat()
 
-##def customermenu(): ##function to call courier menu
+def customermenu(): ##function to call customer menu
+    pass
 
-##def customermenu_input(): ##function to call courier menu input from user
+##def customermenu_input(): ##function to call customer menu input from user
 
 def ordermenu(): ## function to call orders menu
     menuline()
@@ -319,10 +320,8 @@ def ordermenu_input(): ##function to call order menu input from user
 
 def printorder(): ##function to print list of current orders
     orders = {}
-    with open('Project\data\orders.txt') as f:
-        for line in f:
-            (key, val) = line.split()
-            orders[int(key)] = val
+    with open('Project\data\orders.txt', 'r') as file:
+        orders = file.readlines() #needs tidying up
     print()
     menuline()
     print()
@@ -330,7 +329,51 @@ def printorder(): ##function to print list of current orders
     print()
     ordermenu()
 
-def createorder(): ##function to create new order
+def ordernumber():##function to create and track order
+    with open("Project\data\orders.txt", 'r') as file:
+        ordercount = len(file.readlines()) + 1
+        return(ordercount)
+
+def createorder():##function to create new order
+    orders = {}
+    with open('Project\data\orders.txt', 'a') as orderdict:
+        orders["Order Number"] = ordernumber()
+        orders["Name"] = input("Enter name: ")
+        orders["Address"] = input("Enter delivery address: ")
+        orders["Phone"] = input("Enter phone number: ")
+        orders["Courier"] = input("Enter courier number: ")
+        orders["Status"] = "Preparing"
+        orderdict.write("\n" + str(orders))
+        orderdict.close()
+        print(orders)
+        print()
+        menuline()
+        print()
+        createorderrepeat()
+
+def createorderrepeat():##function that allows user to create orders one by one without moving menus
+    user_input = input("Would you like to add another order? Please type Y or N: ")
+    if user_input == 'Y' or user_input == 'y':
+        createorder()
+    elif user_input == 'N' or user_input == 'n':
+        ordermenu()
+    else:
+        print('Sorry, invalid input, please try again')
+        createorderrepeat()
+
+def updateorder():
+    pass
+
+def updateorderrepeat():
+    pass
+
+def updateorderstatus():
+    pass
+
+def deleteorder():
+    pass
+
+def deleteorderrepeat():
     pass
 
 mainmenu()
