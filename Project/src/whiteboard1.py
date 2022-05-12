@@ -1,25 +1,26 @@
-def createorder(): ##function to create new order
-    orders = {}
-    with open('Project\data\orders.txt') as f:
-        for line in f:
-            (key, val) = line.split()
-            orders[int(key)] = val
-    createorder= open('Project\data\orders.txt', 'a')   
-    dictvalue = len(orders) + 1
+import csv
+import os
 
+def createproduct():
+    with open('Project\data\products.csv', 'a', newline='') as csvfile:
+        product_info = ['id', 'Name', 'Price']
+        writer = csv.DictWriter(csvfile, fieldnames = product_info)
+        id_value = productnumber()
+        product_name = input("What is the name of the new product?: ")
+        product_price = float(input("What is the product price?: £"))
+        products = [{'id': id_value, 'Name': product_name, 'Price': product_price}]
+        if id_value == 1:
+            writer.writeheader()
+        else:
+            pass
+        writer.writerows(products)
+        csvfile.close()
 
+def productnumber():
+    with open(r"Project\data\products.csv", 'r') as file:
+        productnumber = len(file.readlines())
+        if productnumber == 0:
+            productnumber + 1
+        return productnumber
 
-##test
-
-
-    
-    user_prod_input = input("What is the name of the new product?: ")
-    create.writelines('\n' + str(dictvalue) + ' ' + str(user_prod_input))
-    products[dictvalue] = user_prod_input
-    create.close()
-    print()
-    menuline()
-    print()
-    print("Available products are ", products)
-    print()
-    prodrepeat()
+createproduct()

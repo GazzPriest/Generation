@@ -8,7 +8,7 @@ def mainmenu(): ## function to call main menu
     print()
     menuline()
     print()
-    print('1: Products Menu \n2: Couriers Menu \n3: Customers Menu \n4: Orders Menu \n0: Exit')
+    print('1: Products Menu \n2: Couriers Menu \n3: Orders Menu \n0: Exit')
     print()
     mainmenu_input()
     print()
@@ -21,8 +21,6 @@ def mainmenu_input(): ##function to call main menu input from user
     elif user_input == '2':
         couriermenu()
     elif user_input == '3':
-        customermenu()
-    elif user_input == '4':
         ordermenu()
     elif user_input == '0':
         exit() #function should call savefile
@@ -285,11 +283,6 @@ def delcourierrepeat(): ##function that allows user to delete products one by on
     else:
         print('Sorry, invalid input, please try again')
         delcourierrepeat()
-
-def customermenu(): ##function to call customer menu
-    pass
-
-##def customermenu_input(): ##function to call customer menu input from user
 
 def ordermenu(): ## function to call orders menu
     menuline()
