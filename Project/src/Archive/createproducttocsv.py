@@ -1,5 +1,4 @@
 import csv
-import os
 
 def createproduct():
     with open('Project\data\products.csv', 'a', newline='') as csvfile:
@@ -15,6 +14,12 @@ def createproduct():
             pass
         writer.writerows(products)
         csvfile.close()
+        print()
+        #menuline()
+        print()
+        print("Available products are ", products)
+        print()
+        #prodrepeat()
 
 def productnumber():
     with open(r"Project\data\products.csv", 'r') as file:

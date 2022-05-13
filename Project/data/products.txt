@@ -1,6 +1,0 @@
-1 Sandwich
-2 Baguette
-3 Crisps
-4 Chocolate
-5 Coke
-6 Water

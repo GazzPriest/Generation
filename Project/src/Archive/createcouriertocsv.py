@@ -1,8 +1,6 @@
 import csv
 
-#createcourier
-
-def createcourier(): ##function to create new courier
+def createcourier():
     with open('Project\data\couriers.csv', 'a', newline='') as csvfile:
         courier_info = ['id', 'Name', 'Phone']
         writer = csv.DictWriter(csvfile, fieldnames = courier_info)
@@ -16,16 +14,13 @@ def createcourier(): ##function to create new courier
             pass
         writer.writerows(couriers)
         csvfile.close()
-        print()
-        #menuline()
-        print()
-        #courierrepeat()
 
-def couriernumber():##function to track courier id numbers
+def couriernumber():
     with open(r"Project\data\couriers.csv", 'r') as file:
         couriernumber = len(file.readlines())
         if couriernumber == 0:
             couriernumber + 1
-        return couriernumber
+        else:
+            return couriernumber
 
 createcourier()
