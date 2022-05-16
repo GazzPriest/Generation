@@ -1,46 +1,50 @@
-def prodmenu(): ## function to call product menu
-    menuline()
+import csv
+import main
+
+
+def productmenu(): ## function to call product menu
+    main.menuline()
     print()
     print('Products Menu')
     print()
-    menuline()
+    main.menuline()
     print()
     print('1: Print Products Menu \n2: Create New Product \n3: Update Existing Product \n4: Delete Product \n0: Return to Main Menu')
     print()
-    prodmenu_input()
+    productmenu_input()
 
-def prodmenu_input(): ##function to call product menu input from user
+def productmenu_input(): ##function to call product menu input from user
     user_input = input('Press a Key: ')
     if user_input == '1':
-        printprod()
+        printproduct()
     elif user_input == '2':
-        createprod()
+        createproduct()
     elif user_input == '3':
-        updateprod()
+        updateproduct()
     elif user_input == '4':
-        delprod()
+        deleteproduct()
     elif user_input == '0':
-        mainmenu()
+        main.mainmenu()
     else:
         print('Sorry, invalid input, please try again')
-        prodmenu()
+        productmenu()
 
-def printprod(): ##function to print list of current products
+def printproduct(): ##function to print list of current products
     with open('Project\data\products.csv', 'r') as file:
         reader = csv.reader(file)
         print()
-        menuline()
+        main.menuline()
         print()
         print("Available products are")
         print()
         for products in reader:
             print(products)
     print()
-    menuline()
-    input("Press Enter to return to the Products Menu: ")
-    prodmenu()
+    main.menuline()
+    input("Press Enter to return to the products Menu: ")
+    productmenu()
 
-def createprod(): ##function to create new product
+def createproduct(): ##function to create new product
     with open('Project\data\products.csv', 'a', newline='') as csvfile:
         product_info = ['id', 'Name', 'Price']
         writer = csv.DictWriter(csvfile, fieldnames = product_info)
@@ -55,9 +59,9 @@ def createprod(): ##function to create new product
         writer.writerows(products)
         csvfile.close()
         print()
-        menuline()
+        main.menuline()
         print()
-        prodrepeat()
+        productrepeat()
 
 def productnumber():##function to track product id numbers
     with open(r"Project\data\products.csv", 'r') as file:
@@ -66,22 +70,22 @@ def productnumber():##function to track product id numbers
             productnumber + 1
         return productnumber
 
-def prodrepeat(): ##function that allows user to add products one by one without moving menus
+def productrepeat(): ##function that allows user to add products one by one without moving menus
     user_input = input("Would you like to add another product? Please type Y or N: ")
     if user_input == 'Y' or user_input == 'y':
-        createprod()
+        createproduct()
     elif user_input == 'N' or user_input == 'n':
-        prodmenu()
+        productmenu()
     else:
         print('Sorry, invalid input, please try again')
-        prodrepeat()
+        productrepeat()
 
-def updateprod(): ##function to update current product
+def updateproduct(): ##function to update current product
     productlist = []
     with open('Project\data\products.csv', 'r') as file:
         reader = csv.reader(file)
         print()
-        print("Menuline here")
+        main.menuline()
         print()
         print("Available products are")
         print()
@@ -98,26 +102,26 @@ def updateprod(): ##function to update current product
             for i in range(len(productlist)):
                 writer.writerow(productlist[i])
         print()
-        menuline()
+        main.menuline()
         print()
         updaterepeat()
 
 def updaterepeat(): ##function that allows user to update products one by one without moving menus
     user_input = input("Would you like to amend another product? Please type Y or N: ")
     if user_input == 'Y' or user_input == 'y':
-        updateprod()
+        updateproduct()
     elif user_input == 'N' or user_input == 'n':
-        prodmenu()
+        productmenu()
     else:
         print('Sorry, invalid input, please try again')
         updaterepeat()
 
-def delprod(): ##function to remove product
+def deleteproduct(): ##function to remove product
     readlist = []
     with open('Project\data\products.csv', 'r') as file:
         reader = csv.reader(file)
         print()
-        print("Menuline here")
+        main.menuline()
         print()
         print("Available products are")
         print()
@@ -150,17 +154,17 @@ def delprod(): ##function to remove product
         for row in reader:
             print("Available products are")
             print()
-            printprod()
+            printproduct()
             print()
-            delrepeat()
+            deleteproductrepeat()
         file.close()
 
-def delrepeat(): ##function that allows user to delete products one by one without moving menus
+def deleteproductrepeat(): ##function that allows user to delete products one by one without moving menus
     user_input = input("Would you like to delete another product? Please type Y or N: ")
     if user_input == 'Y' or user_input == 'y':
-        delprod()
+        deleteproduct()
     elif user_input == 'N' or user_input == 'n':
-        prodmenu()
+        productmenu()
     else:
         print('Sorry, invalid input, please try again')
-        delrepeat()
+        deleteproductrepeat()

@@ -1,2 +1,4 @@
 id,Customer Name,Customer Address,Customer Phone,Courier,Status,Items
-1,John,"Unit 2, 12 Main Street, LONDON WH1 2ER",078892565,1,Preparing,1
+1,Ian,"37 New Horse Road, Cheslyn Hay, Walsall WS6 7BH",07805114376,1,Out For Delivery,"2, 3, 3"
+2,Steve,"31 Ajax Close, Great Wyrley, Walsall WS6 6JU",07788444555,2,Delivered,"1, 2, 3"
+3,Kevin,"21 Lime Street, Walsall WS14 5GH",073366995511,4,Preparing,"1, 1, 1, 1, 3"
