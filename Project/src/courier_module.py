@@ -1,8 +1,7 @@
 import csv
-import main, product_module
-
 
 def couriermenu(): ## function to call courier menu
+    import main
     main.menuline()
     print()
     print('Courier Menu')
@@ -24,15 +23,18 @@ def couriermenu_input(): ##function to call courier menu input from user
     elif user_input == '4':
         deletecourier()
     elif user_input == '0':
+        import main
         main.mainmenu()
     else:
         print('Sorry, invalid input, please try again')
+        import product_module
         product_module.productmenu()
 
 def printcourier(): ##function to print list of current products
     with open('Project\data\couriers.csv', 'r') as file:
         reader = csv.reader(file)
         print()
+        import main
         main.menuline()
         print()
         print("Available couriers are")
@@ -59,6 +61,7 @@ def createcourier(): ##function to create new courier
         writer.writerows(couriers)
         csvfile.close()
         print()
+        import main
         main.menuline()
         print()
         courierrepeat()
@@ -85,6 +88,7 @@ def updatecourier(): ##function to update current courier
     with open('Project\data\couriers.csv', 'r') as file:
         reader = csv.reader(file)
         print()
+        import main
         main.menuline()
         print()
         print("Available couriers are")
@@ -121,6 +125,7 @@ def deletecourier(): ##function to remove courier
     with open('Project\data\couriers.csv', 'r') as file:
         reader = csv.reader(file)
         print()
+        import main
         main.menuline()
         print()
         print("Available couriers are")

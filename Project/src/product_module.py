@@ -1,8 +1,7 @@
 import csv
-import main
-
 
 def productmenu(): ## function to call product menu
+    import main
     main.menuline()
     print()
     print('Products Menu')
@@ -24,6 +23,7 @@ def productmenu_input(): ##function to call product menu input from user
     elif user_input == '4':
         deleteproduct()
     elif user_input == '0':
+        import main
         main.mainmenu()
     else:
         print('Sorry, invalid input, please try again')
@@ -33,6 +33,7 @@ def printproduct(): ##function to print list of current products
     with open('Project\data\products.csv', 'r') as file:
         reader = csv.reader(file)
         print()
+        import main
         main.menuline()
         print()
         print("Available products are")
@@ -59,6 +60,7 @@ def createproduct(): ##function to create new product
         writer.writerows(products)
         csvfile.close()
         print()
+        import main
         main.menuline()
         print()
         productrepeat()
@@ -85,6 +87,7 @@ def updateproduct(): ##function to update current product
     with open('Project\data\products.csv', 'r') as file:
         reader = csv.reader(file)
         print()
+        import main
         main.menuline()
         print()
         print("Available products are")
@@ -121,6 +124,7 @@ def deleteproduct(): ##function to remove product
     with open('Project\data\products.csv', 'r') as file:
         reader = csv.reader(file)
         print()
+        import main
         main.menuline()
         print()
         print("Available products are")

@@ -1,7 +1,7 @@
 import csv
-import main
 
 def ordermenu(): ## function to call orders menu
+    import main
     main.menuline()
     print()
     print('Orders Menu')
@@ -25,6 +25,7 @@ def ordermenu_input(): ##function to call order menu input from user
     elif user_input == '5':
         deleteorder()
     elif user_input == '0':
+        import main
         main.mainmenu()
     else:
         print('Sorry, invalid input, please try again')
@@ -43,6 +44,7 @@ def printorder(): ##function to print list of current orders
                 continue
             print(orders)
     print()
+    import main
     main.menuline()
     input("Press Enter to return to the orders Menu: ")
     ordermenu()
@@ -58,6 +60,7 @@ def createorder(): ##function to create new order
         with open('Project\data\couriers.csv', 'r') as file:
             reader = csv.reader(file)
             print()
+            import main
             main.menuline()
             print()
             print("Available couriers are")
@@ -110,6 +113,7 @@ def updateorder(): ##function to update current order
     with open('Project\data\orders.csv', 'r') as file:
         reader = csv.reader(file)
         print()
+        import main
         main.menuline()
         print()
         print("Currently open orders are")
@@ -174,6 +178,7 @@ def updateorderstatus(): ##function to update order status
     with open('Project\data\orders.csv', 'r') as file:
         reader = csv.reader(file)
         print()
+        import main
         main.menuline()
         print()
         print("Currently open orders are")
@@ -234,6 +239,7 @@ def deleteorder(): ##function to remove orders
     with open('Project\data\orders.csv', 'r') as file:
         reader = csv.reader(file)
         print()
+        import main
         main.menuline()
         print()
         print("Currently open orders are")
