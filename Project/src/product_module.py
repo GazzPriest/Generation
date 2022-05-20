@@ -1,6 +1,21 @@
-import csv
 from mainmenu_function import menuline
+import pymysql
+import os
+from dotenv import load_dotenv
 
+
+load_dotenv()
+host = os.environ.get("mysql_host")
+user = os.environ.get("mysql_user")
+password = os.environ.get("mysql_pass")
+database = os.environ.get("mysql_db")
+connection = pymysql.connect(
+    host = host,
+    user = user,
+    password = password,
+    database = database
+)
+cursor = connection.cursor()
 
 def productmenu(): ## function to call product menu
     menuline()
@@ -16,155 +31,125 @@ def productmenu(): ## function to call product menu
 def productmenu_input(): ##function to call product menu input from user
     user_input = input('Press a Key: ')
     if user_input == '1':
-        printproduct()
+        print_product()
     elif user_input == '2':
-        createproduct()
+        create_product()
     elif user_input == '3':
-        updateproduct()
+        update_product()
     elif user_input == '4':
-        deleteproduct()
+        delete_product()
     elif user_input == '0':
         return 
     else:
         print('Sorry, invalid input, please try again')
         productmenu()
 
-def printproduct(): ##function to print list of current products
-    with open('Project\data\products.csv', 'r') as file:
-        reader = csv.reader(file)
-        print()
-        menuline()
-        print()
-        print("Available products are")
-        print()
-        for products in reader:
-            print(products)
+def print_product():
+    cursor.execute("SELECT * FROM products")
+    products = cursor.fetchall()
+    print("Current Product List")
+    print("--------------------")
+    print()
+    print("ID  Name        Price(£)")
+    for row in products:
+        print(f"{row[0]} - {row[1]} - £{float(row[2]):.2f}")
+    connection.commit()
+    cursor.close()
+    connection.close()
     print()
     menuline()
     input("Press Enter to return to the products Menu: ")
     productmenu()
 
-def createproduct(): ##function to create new product
-    with open('Project\data\products.csv', 'a', newline='') as csvfile:
-        product_info = ['id', 'Name', 'Price']
-        writer = csv.DictWriter(csvfile, fieldnames = product_info)
-        id_value = productnumber()
-        product_name = input("What is the name of the new product?: ")
-        product_price = float(input("What is the product price?: £"))
-        products = [{'id': id_value, 'Name': product_name, 'Price': product_price}]
-        if id_value == 1:
-            writer.writeheader()
-        else:
-            pass
-        writer.writerows(products)
-        csvfile.close()
-        print()
-        menuline()
-        print()
-        productrepeat()
+def create_product():
+    cursor = connection.cursor()
+    product_name = input("What is the new product name?: ")
+    product_price = input("What is the new product price?: £")
+    sql = "INSERT INTO products (product_name, product_price) VALUES (%s, %s)"
+    val = (product_name, product_price)
+    cursor.execute(sql, val)
+    connection.commit()
+    #cursor.close()
+    #connection.close()
+    print()
+    menuline()
+    print()
+    product_repeat()
 
-def productnumber():##function to track product id numbers
-    with open(r"Project\data\products.csv", 'r') as file:
-        productnumber = len(file.readlines())
-        if productnumber == 0:
-            productnumber + 1
-        return productnumber
-
-def productrepeat(): ##function that allows user to add products one by one without moving menus
+def product_repeat(): ##function that allows user to add products one by one without moving menus
     user_input = input("Would you like to add another product? Please type Y or N: ")
     if user_input == 'Y' or user_input == 'y':
-        createproduct()
+        create_product()
     elif user_input == 'N' or user_input == 'n':
         productmenu()
     else:
         print('Sorry, invalid input, please try again')
-        productrepeat()
+        product_repeat()
 
-def updateproduct(): ##function to update current product
+def update_product():
+    cursor = connection.cursor()
     productlist = []
-    with open('Project\data\products.csv', 'r') as file:
-        reader = csv.reader(file)
-        print()
-        menuline()
-        print()
-        print("Available products are")
-        print()
-        for products in reader:
-            productlist.append(products)
-            print(products)
-        print()
-        user_input = int(input("Please enter the ID of the product you would like to update?: "))
-        for i in range(1, len(productlist[0])):
-            new_info = input("Enter new information for " + str(productlist[0][i] + ": "))
-            productlist[user_input][i] = new_info
-        with open('Project\data\products.csv', 'w', newline="") as file:
-            writer = csv.writer(file)
-            for i in range(len(productlist)):
-                writer.writerow(productlist[i])
-        print()
-        menuline()
-        print()
-        updaterepeat()
+    cursor.execute("SELECT * FROM products")
+    products = cursor.fetchall()
+    print("Current Product List")
+    print("--------------------")
+    print()
+    print("ID  Name        Price(£)")
+    for row in products:
+        productlist.append(row)
+        print(f"{row[0]} - {row[1]} - £{float(row[2]):.2f}")
+    print()
+    update_product = int(input("What is the ID of the product to be updated?: "))
+    new_product_name = (input("What is the new product name?: "))
+    new_product_price = (input("What is the new product price?: £"))
+    cursor.execute(f"UPDATE products set product_name = '{new_product_name}', product_price = '{new_product_price}' WHERE product_id = '{update_product}'")
+    connection.commit()
+    cursor.close()
+    connection.close()
+    print()
+    menuline()
+    print()
+    update_repeat()
 
-def updaterepeat(): ##function that allows user to update products one by one without moving menus
+def update_repeat(): ##function that allows user to update products one by one without moving menus
     user_input = input("Would you like to amend another product? Please type Y or N: ")
     if user_input == 'Y' or user_input == 'y':
-        updateproduct()
+        update_product()
     elif user_input == 'N' or user_input == 'n':
         productmenu()
     else:
         print('Sorry, invalid input, please try again')
-        updaterepeat()
+        update_repeat()
 
-def deleteproduct(): ##function to remove product
-    readlist = []
-    with open('Project\data\products.csv', 'r') as file:
-        reader = csv.reader(file)
-        print()
-        menuline()
-        print()
-        print("Available products are")
-        print()
-        for products in reader:
-            readlist.append(products)
-            print(products)
-        print()
-    file.close()
+def delete_product():
+    cursor = connection.cursor()
+    productlist = []
+    cursor.execute("SELECT * FROM products")
+    products = cursor.fetchall()
+    print("Current Product List")
+    print("--------------------")
+    print()
+    print("ID  Name        Price(£)")
+    for row in products:
+        productlist.append(row)
+        print(f"{row[0]} - {row[1]} - £{float(row[2]):.2f}")
+    print()
+    delete_product = int(input("What is the ID of the product to be deleted?: "))
+    cursor.execute(f"DELETE FROM products WHERE product_id = '{delete_product}'")
+    connection.commit()
+    cursor.close()
+    connection.close()
+    print()
+    menuline()
+    print()
+    delete_repeat()
 
-    file=open("Project\data\products.csv", 'r')
-    reader = csv.reader(file)
-    productlist=[]
-    user_input=int(input("Please enter the product to be deleted: "))
-    Found = False
-    for row in reader:
-        if row[0]==str(user_input):
-            Found=True
-        else:
-            productlist.append(row)
-    file.close
-    
-    if Found==False:
-        print("Sorry, that product ID has has not been found")
-    else:
-        file=open("Project\data\products.csv", 'w+', newline='')
-        writer=csv.writer(file)
-        writer.writerows(productlist)
-        file.seek(0)
-        reader=csv.reader(file)
-        for row in reader:
-            print("Available products are")
-            print()
-            printproduct()
-            print()
-            deleteproductrepeat()
-        file.close()
-
-def deleteproductrepeat(): ##function that allows user to delete products one by one without moving menus
+def delete_repeat(): ##function that allows user to delete products one by one without moving menus
     user_input = input("Would you like to delete another product? Please type Y or N: ")
     if user_input == 'Y' or user_input == 'y':
-        deleteproduct()
+        delete_product()
     elif user_input == 'N' or user_input == 'n':
         productmenu()
     else:
         print('Sorry, invalid input, please try again')
-        deleteproductrepeat()
+        delete_repeat()
