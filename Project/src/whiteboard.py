@@ -15,32 +15,57 @@ connection = pymysql.connect(
 )
 cursor = connection.cursor()
 
-def print_product():
-    cursor.execute("SELECT * FROM products")
-    products = cursor.fetchone()[0]
-    print(products)
-    print("Current Product List")
+def update_order_status(): ##function to update order status
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM orders WHERE order_status = 'Preparing' OR order_status = 'Out For Delivery'")
+    orders = cursor.fetchall()
+    orderlist = []
+    print()
+    print("Currently Open Orders")
     print("--------------------")
     print()
-    print("ID   Name        Price(£)")
-    for items in products:
-        print(items)
+    print("ID - Name - Address - Phone Number - Courier - Status - Items")
+    for row in orders:
+        order = {'order_id' : row[0], 'customer_name': row[1], 'customer_address': row[2], 'customer_phone': row[3], 'courier_id': row[4], 'order_status': row[5], 'items': row[6]}
+        orderlist.append(order)
+        print(f"{row[0]} - {row[1]} - {row[2]} - {row[3]} - {row[4]} - {row[5]} - {row[6]}")
+    print()
+    user_input = int(input("Please enter the ID of the order you would like to update?: "))    
     print()
     #menuline()
-    input("Press Enter to return to the products Menu: ")
-    #productmenu()
-    
-    #cursor.execute("SELECT COUNT(*) FROM products") #fetches the number of rows in the table
-    #products = cursor.fetchone()[0] 
-    #print(products)
-
-
+    print()
+    print("1: Preparing \n2: Out For Delivery \n3: Delivered \n4: Cancelled \n0: Back to Order Menu" )
+    print()
+    user_choice = input("Please select the order status: ")
+    if user_choice == '1':
+        for i in range(5, 6):
+            new_status = "Preparing"
+            orderlist[user_input][i] = new_status
+            cursor.execute(f"UPDATE orders set order_status = '{new_status}' WHERE order_id = {user_input}")
+    elif user_choice == '2':
+        for i in range(5, 6):
+            new_status = "Out For Delivery"
+            orderlist[user_input][i] = new_status
+            cursor.execute(f"UPDATE orders set order_status = '{new_status}' WHERE order_id = {user_input}")
+    elif user_choice == '3':
+        for i in range(5, 6):
+            new_status = "Delivered"
+            orderlist[user_input][i] = new_status
+            cursor.execute(f"UPDATE orders set order_status = '{new_status}' WHERE order_id = {user_input}")
+    elif user_choice == '4':
+        for i in range(5, 6):
+            new_status = "Cancelled"
+            orderlist[user_input][i] = new_status
+            cursor.execute(f"UPDATE orders set order_status = '{new_status}' WHERE order_id = {user_input}")    
+    elif user_choice == '0':
+            return #order_menu()
+    else:
+        print('Sorry, invalid input, please try again')
+        update_order_status()
     connection.commit()
-    cursor.close()
-    connection.close()
+    print()
+    #menuline()
+    print()
+    #updateorderstatusrepeat()
 
-print_product()
-
-
-for count, row in enumerate(products, 1):
-            print(f"{count} | {row[1]} | £{row[2]}")
+update_order_status()

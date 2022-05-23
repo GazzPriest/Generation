@@ -18,6 +18,9 @@ cursor = connection.cursor()
 def print_product():
     cursor.execute("SELECT * FROM products")
     products = cursor.fetchall()
+    columns = cursor.description 
+    result = [{columns[index][0]:column for index, column in enumerate(value)} for value in cursor.fetchall()]
+    print(result)
     print("Current Product List")
     print("--------------------")
     print()
