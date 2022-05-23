@@ -1,5 +1,5 @@
 import csv 
-from mainmenu_function import menuline
+from main_menu_function import menuline
 import pymysql
 import os
 from dotenv import load_dotenv
@@ -81,7 +81,7 @@ def create_order():
     order_courier = input("What is the ID of the delivery courier?: ")
     order_status = "Preparing"
     order_items = input("What are the IDs of the ordered menu items?: ")
-    order_status_id = 1
+    order_status_id = "1"
     sql = "INSERT INTO orders (customer_name, customer_address, customer_phone, courier_id, order_status, items, order_status_id) VALUES (%s, %s, %s, %s, %s, %s, %s)"
     val = (customer_name, customer_address, customer_phone, order_courier, order_status, order_items, order_status_id)
     cursor.execute(sql, val)
