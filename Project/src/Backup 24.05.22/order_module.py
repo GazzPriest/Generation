@@ -85,11 +85,8 @@ def create_order():
     order_status = "Preparing"
     order_items = input("What are the IDs of the ordered menu items?: ")
     sql = "INSERT INTO orders (customer_name, customer_address, customer_phone, courier_id, status, items) VALUES (%s, %s, %s, %s, %s, %s)"
-    sql2 = "INSERT INTO order_status (status) VALUES (%s)"
     val = (customer_name, customer_address, customer_phone, order_courier, order_status, order_items)
-    val2 = (order_status)
     cursor.execute(sql, val)
-    cursor.execute(sql2, val2)
     connection.commit()
     print()
     menuline()
@@ -203,25 +200,25 @@ def update_order_status(): ##function to update order status
         for i in range(5, 6):
             new_status = "Preparing"
             orderlist[user_input][i] = new_status
-            cursor.execute(f"UPDATE order_status set status = '{new_status}' WHERE id = {user_input}")
+            cursor.execute(f"UPDATE order_status set order_status = '{new_status}' WHERE id = {user_input}")
             cursor.execute(f"UPDATE orders set status = '{new_status}' WHERE order_id = {user_input}")
     elif user_choice == '2':
         for i in range(5, 6):
             new_status = "Out For Delivery"
             orderlist[user_input][i] = new_status
-            cursor.execute(f"UPDATE order_status set status = '{new_status}' WHERE id = {user_input}")
+            cursor.execute(f"UPDATE order_status set order_status = '{new_status}' WHERE id = {user_input}")
             cursor.execute(f"UPDATE orders set status = '{new_status}' WHERE order_id = {user_input}")
     elif user_choice == '3':
         for i in range(5, 6):
             new_status = "Delivered"
             orderlist[user_input][i] = new_status
-            cursor.execute(f"UPDATE order_status set status = '{new_status}' WHERE id = {user_input}")
+            cursor.execute(f"UPDATE order_status set order_status = '{new_status}' WHERE id = {user_input}")
             cursor.execute(f"UPDATE orders set status = '{new_status}' WHERE order_id = {user_input}")
     elif user_choice == '4':
         for i in range(5, 6):
             new_status = "Cancelled"
             orderlist[user_input][i] = new_status
-            cursor.execute(f"UPDATE order_status set status = '{new_status}' WHERE id = {user_input}")
+            cursor.execute(f"UPDATE order_status set order_status = '{new_status}' WHERE id = {user_input}")
             cursor.execute(f"UPDATE orders set status = '{new_status}' WHERE order_id = {user_input}")    
     elif user_choice == '0':
             return order_menu()
