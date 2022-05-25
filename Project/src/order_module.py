@@ -82,14 +82,11 @@ def create_order():
         print(f"{row[0]} - {row[1]} - {row[2]}")
     menuline()
     order_courier = input("What is the ID of the delivery courier?: ")
-    order_status = "Preparing"
+    order_status = "1"
     order_items = input("What are the IDs of the ordered menu items?: ")
     sql = "INSERT INTO orders (customer_name, customer_address, customer_phone, courier_id, status, items) VALUES (%s, %s, %s, %s, %s, %s)"
-    sql2 = "INSERT INTO order_status (status) VALUES (%s)"
     val = (customer_name, customer_address, customer_phone, order_courier, order_status, order_items)
-    val2 = (order_status)
     cursor.execute(sql, val)
-    cursor.execute(sql2, val2)
     connection.commit()
     print()
     menuline()
@@ -108,7 +105,7 @@ def order_repeat():##function that allows user to create orders one by one witho
 
 def update_order():
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM orders WHERE status = 'Preparing' OR status = 'Out For Delivery'")
+    cursor.execute("SELECT * FROM orders WHERE status = '1' OR status = '2'")
     orders = cursor.fetchall()
     orderlist = []
     print()
@@ -179,7 +176,7 @@ def update_order_repeat(): ##function that allows user to update orders one by o
 
 def update_order_status(): ##function to update order status
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM orders WHERE status = 'Preparing' OR status = 'Out For Delivery'")
+    cursor.execute("SELECT * FROM orders WHERE status = '1' OR status = '2'")
     orders = cursor.fetchall()
     orderlist = []
     print()
@@ -201,27 +198,23 @@ def update_order_status(): ##function to update order status
     user_choice = input("Please select the order status: ")
     if user_choice == '1':
         for i in range(5, 6):
-            new_status = "Preparing"
+            new_status = "1"
             orderlist[user_input][i] = new_status
-            cursor.execute(f"UPDATE order_status set status = '{new_status}' WHERE id = {user_input}")
             cursor.execute(f"UPDATE orders set status = '{new_status}' WHERE order_id = {user_input}")
     elif user_choice == '2':
         for i in range(5, 6):
-            new_status = "Out For Delivery"
+            new_status = "2"
             orderlist[user_input][i] = new_status
-            cursor.execute(f"UPDATE order_status set status = '{new_status}' WHERE id = {user_input}")
             cursor.execute(f"UPDATE orders set status = '{new_status}' WHERE order_id = {user_input}")
     elif user_choice == '3':
         for i in range(5, 6):
-            new_status = "Delivered"
+            new_status = "3"
             orderlist[user_input][i] = new_status
-            cursor.execute(f"UPDATE order_status set status = '{new_status}' WHERE id = {user_input}")
             cursor.execute(f"UPDATE orders set status = '{new_status}' WHERE order_id = {user_input}")
     elif user_choice == '4':
         for i in range(5, 6):
-            new_status = "Cancelled"
+            new_status = "4"
             orderlist[user_input][i] = new_status
-            cursor.execute(f"UPDATE order_status set status = '{new_status}' WHERE id = {user_input}")
             cursor.execute(f"UPDATE orders set status = '{new_status}' WHERE order_id = {user_input}")    
     elif user_choice == '0':
             return order_menu()
@@ -246,7 +239,7 @@ def update_order_status_repeat(): ##function that allows user to update order st
 
 def delete_order(): ##function to delete orders
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM orders WHERE status = 'Preparing' OR status = 'Out For Delivery'")
+    cursor.execute("SELECT * FROM orders WHERE status = '1' OR status = '2'")
     orders = cursor.fetchall()
     orderlist = []
     print()
@@ -261,7 +254,6 @@ def delete_order(): ##function to delete orders
     print()
     delete_order = int(input("What is the ID of the order to be deleted?: "))
     cursor.execute(f"DELETE FROM orders WHERE order_id = '{delete_order}'")
-    cursor.execute(f"DELETE FROM order_status WHERE id = '{delete_order}'")
     connection.commit()
     print()
     menuline()
@@ -314,7 +306,7 @@ def fetch_order_status():
     print()
     user_choice = input("Please select the order status: ")
     if user_choice == '1':
-        cursor.execute(f"SELECT * FROM orders WHERE status = 'Preparing'")
+        cursor.execute(f"SELECT * FROM orders WHERE status = '1'")
         orders = cursor.fetchall()
         print()
         print("Current Orders")
@@ -324,7 +316,7 @@ def fetch_order_status():
         for row in orders:
             print(f"{row[0]} - {row[1]} - {row[2]} - {row[3]} - {row[4]} - {row[6]}")
     if user_choice == '2':
-        cursor.execute(f"SELECT * FROM orders WHERE status = 'Out For Delivery'")
+        cursor.execute(f"SELECT * FROM orders WHERE status = '2'")
         orders = cursor.fetchall()
         print()
         print("Current Orders")
@@ -334,7 +326,7 @@ def fetch_order_status():
         for row in orders:
             print(f"{row[0]} - {row[1]} - {row[2]} - {row[3]} - {row[4]} - {row[6]}")
     if user_choice == '3':
-        cursor.execute(f"SELECT * FROM orders WHERE status = 'Delivered'")
+        cursor.execute(f"SELECT * FROM orders WHERE status = '3'")
         orders = cursor.fetchall()
         print()
         print("Current Orders")
@@ -344,7 +336,7 @@ def fetch_order_status():
         for row in orders:
             print(f"{row[0]} - {row[1]} - {row[2]} - {row[3]} - {row[4]} - {row[6]}")
     if user_choice == '4':
-        cursor.execute(f"SELECT * FROM orders WHERE status = 'Cancelled'")
+        cursor.execute(f"SELECT * FROM orders WHERE status = '4'")
         orders = cursor.fetchall()
         print()
         print("Current Orders")

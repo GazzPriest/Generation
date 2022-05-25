@@ -35,18 +35,18 @@ def backup_files_input(): ##function to call backup file menu input from user
     if user_input == '1':
         backup_products()
         print("Backup Successful")
-        print("Press Enter to return to Backup Menu")
+        input("Press Enter to return to Backup Menu")
         backup_files()
     elif user_input == '2':
         backup_couriers()
         print("Backup Successful")
-        print("Press Enter to return to Backup Menu")
+        input("Press Enter to return to Backup Menu")
         backup_files()        
     elif user_input == '3':
         backup_orders()
         backup_order_status()
         print("Backup Successful")
-        print("Press Enter to return to Backup Menu")
+        input("Press Enter to return to Backup Menu")
         backup_files()
     elif user_input == '4':
         backup_products()
@@ -54,7 +54,7 @@ def backup_files_input(): ##function to call backup file menu input from user
         backup_orders()
         backup_order_status()
         print("Backup Successful")
-        print("Press Enter to return to Backup Menu")
+        input("Press Enter to return to Backup Menu")
         backup_files()
     elif user_input == '0':
         return

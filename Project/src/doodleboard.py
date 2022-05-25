@@ -1,76 +1,22 @@
-import pymysql
-import os
-from dotenv import load_dotenv
+data = [['NAME', 'AGE', 'HANDEDNESS', 'SCORE (%)'],
+        ['Martin', 38, 'L', 54.123],
+        ['Marty', 33, 'L', 32.438],
+        ['Martine', 25, 'R', 71.128],
+        ['Martyn', 59, 'R', 50.472],
+        ['Mart', 23, 'L', 2.438],
+        ['Martyne', 15, 'R', 71.128],
+        ['Marlyn', 101, 'R', 0.472],
+        ['Marti', 2, 'L', 55.438],
+        ['Mardi', 9, 'R', 81.128],
+        ['Martyne', 49, 'R', 24.472],
+        ['Marteen', 91, 'L', 1.128]]
 
-from Project.src.order_module import order_menu
-#def create_server_connection(): #function to load .env variables and connect to SQL database "cafeapp"
-load_dotenv()
-host = os.environ.get("mysql_host")
-user = os.environ.get("mysql_user")
-password = os.environ.get("mysql_pass")
-database = os.environ.get("mysql_db")
-connection = pymysql.connect(
-    host = host,
-    user = user,
-    password = password,
-    database = database
-)
-cursor = connection.cursor()
+dash = '-' * 40
 
-def fetch_order_status():
-    cursor = connection.cursor()
-    print()
-    print("Order Status Menu")
-    #menuline()
-    print()
-    print("1: Preparing \n2: Out For Delivery \n3: Delivered \n4: Cancelled \n0: Back to Order Menu" )
-    print()
-    user_choice = input("Please select the order status: ")
-    if user_choice == '1':
-        cursor.execute(f"SELECT * FROM orders WHERE status = 'Preparing'")
-        orders = cursor.fetchall()
-        print()
-        print("Current Orders")
-        #menuline()
-        print()
-        print("ID - Name - Address - Phone Number - Courier - Items")
-        for row in orders:
-            print(f"{row[0]} - {row[1]} - {row[2]} - {row[3]} - {row[4]} - {row[6]}")
-            #menuline()
-    if user_choice == '2':
-        cursor.execute(f"SELECT * FROM orders WHERE status = 'Out For Delivery'")
-        orders = cursor.fetchall()
-        print()
-        print("Current Orders")
-        #menuline()
-        print()
-        print("ID - Name - Address - Phone Number - Courier - Items")
-        for row in orders:
-            print(f"{row[0]} - {row[1]} - {row[2]} - {row[3]} - {row[4]} - {row[6]}")
-            #menuline()
-    if user_choice == '3':
-        cursor.execute(f"SELECT * FROM orders WHERE status = 'Delivered'")
-        orders = cursor.fetchall()
-        print()
-        print("Current Orders")
-        #menuline()
-        print()
-        print("ID - Name - Address - Phone Number - Courier - Items")
-        for row in orders:
-            print(f"{row[0]} - {row[1]} - {row[2]} - {row[3]} - {row[4]} - {row[6]}")
-            #menuline()
-    if user_choice == '4':
-        cursor.execute(f"SELECT * FROM orders WHERE status = 'Cancelled'")
-        orders = cursor.fetchall()
-        print()
-        print("Current Orders")
-        #menuline()
-        print()
-        print("ID - Name - Address - Phone Number - Courier - Items")
-        for row in orders:
-            print(f"{row[0]} - {row[1]} - {row[2]} - {row[3]} - {row[4]} - {row[6]}")
-            #menuline()
-    input("Press Enter to return to the Orders Menu: ")
-    order_menu()
-
-fetch_order_status()
+for i in range(len(data)):
+    if i == 0:
+      print(dash)
+      print('{:<10s}{:>4s}{:>12s}{:>12s}'.format(data[i][0],data[i][1],data[i][2],data[i][3]))
+      print(dash)
+    else:
+      print('{:<10s}{:>4d}{:^12s}{:>12.1f}'.format(data[i][0],data[i][1],data[i][2],data[i][3]))
