@@ -124,27 +124,27 @@ def update_order():
     if user_choice == '1':
         for i in range(1, 2):
             new_info = input("Enter new information for Customer Name or Reference: ")
-            orderlist[user_input][i] = new_info
+            #orderlist[user_input][i] = new_info
             cursor.execute(f"UPDATE orders set customer_name = '{new_info}' WHERE order_id = {user_input}")
     elif user_choice == '2':
         for i in range(2, 3):
             new_info = input("Enter new information for Customer Address: ")
-            orderlist[user_input][i] = new_info
+            #orderlist[user_input][i] = new_info
             cursor.execute(f"UPDATE orders set customer_address = '{new_info}' WHERE order_id = {user_input}")
     elif user_choice == '3':
         for i in range(3, 4):
             new_info = input("Enter new information for Customer Phone: ")
-            orderlist[user_input][i] = new_info
+            #orderlist[user_input][i] = new_info
             cursor.execute(f"UPDATE orders set customer_phone = '{new_info}' WHERE order_id = {user_input}")
     elif user_choice == '4':
         for i in range(4, 5):
             new_info = input("Enter new information for Delivery Courier: ")
-            orderlist[user_input][i] = new_info
+            #orderlist[user_input][i] = new_info
             cursor.execute(f"UPDATE orders set courier_id = '{new_info}' WHERE order_id = {user_input}")
     elif user_choice == '5':
         for i in range(6, 7):
             new_info = input("Enter new information for Ordered Menu Items: ")
-            orderlist[user_input][i] = new_info
+            #orderlist[user_input][i] = new_info
             cursor.execute(f"UPDATE orders set items = '{new_info}' WHERE order_id = {user_input}")
     #elif user_choice == '0':
     #    for i in range(1, len(orderlist[0])):
@@ -199,22 +199,22 @@ def update_order_status(): ##function to update order status
     if user_choice == '1':
         for i in range(5, 6):
             new_status = "1"
-            orderlist[user_input][i] = new_status
+            #orderlist[user_input][i] = new_status
             cursor.execute(f"UPDATE orders set status = '{new_status}' WHERE order_id = {user_input}")
     elif user_choice == '2':
         for i in range(5, 6):
             new_status = "2"
-            orderlist[user_input][i] = new_status
+            #orderlist[user_input][i] = new_status
             cursor.execute(f"UPDATE orders set status = '{new_status}' WHERE order_id = {user_input}")
     elif user_choice == '3':
         for i in range(5, 6):
             new_status = "3"
-            orderlist[user_input][i] = new_status
+            #orderlist[user_input][i] = new_status
             cursor.execute(f"UPDATE orders set status = '{new_status}' WHERE order_id = {user_input}")
     elif user_choice == '4':
         for i in range(5, 6):
             new_status = "4"
-            orderlist[user_input][i] = new_status
+            #orderlist[user_input][i] = new_status
             cursor.execute(f"UPDATE orders set status = '{new_status}' WHERE order_id = {user_input}")    
     elif user_choice == '0':
             return order_menu()
