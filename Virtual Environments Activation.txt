@@ -2,3 +2,7 @@ How to open a virtual environment
 
 python -m venv .venv
 .venv\Scripts\activate.ps1
+
+.ps1 is powershell
+
+.bat for bash
