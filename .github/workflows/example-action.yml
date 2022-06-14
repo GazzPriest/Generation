@@ -8,10 +8,10 @@ on:
 jobs:
   count_lines:
     name: Count lines in repository
-      runs-on: ubuntu-latest
-      steps:
-        run: python pip install pygount
-        run: pygount --format=summary ./Generation
+    runs-on: ubuntu-latest
+    steps:
+      run: python pip install pygount
+      run: pygount --format=summary ./Generation
 
 
 
