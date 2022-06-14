@@ -10,10 +10,10 @@ jobs:
     name: Count lines in repository
     runs-on: ubuntu-latest
     steps:
-      uses: python
-      run: pip install pygount
-      uses: pygount
-      run: pygount --format=summary ./Generation
+      - name: pygount
+        uses: python pip install pygount
+      - name: count
+        run: pygount --format=summary .
 
 
 
