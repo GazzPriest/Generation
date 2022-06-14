@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       run: python pip install pygount
+      uses: pygount
       run: pygount --format=summary ./Generation
 
 
